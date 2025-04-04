@@ -1,10 +1,20 @@
+import { defineConfig, loadEnv } from 'vite'
 
-export default {
-    build:{
-        outDir: '../dist',
-        emptyOutDir: true,
-    },
-    cors: {
-        origin: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+const apiUrl = loadEnv(process.env.VITE_API_URL, process.cwd());
+
+export default defineConfig({
+    server: {
+      cors: {
+        // the origin you will be accessing via browser
+        origin: apiUrl,
       },
-}
+    },
+    build: {
+      // generate .vite/manifest.json in outDir
+      manifest: true,
+      rollupOptions: {
+        // overwrite default .html entry
+        input: '/src/main.js',
+      },
+    },
+  })
