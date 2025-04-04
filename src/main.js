@@ -15,6 +15,7 @@ document.getElementById('scrapeButton').addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
       const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = ''; // Clear previous results
       Object.keys(data).forEach(key => {
         const element = document.createElement('div');
         const { title, rating, reviews, imageURL } = data[key];
